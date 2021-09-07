@@ -22,6 +22,7 @@ td,th{
 }
 caption {  /* 글꼴 크기는 16px 기본 . 비율 : %, em */
     font-size: 1.2em;
+    font-weight: bold;
 }
 
 /*  선택자를 class 사용합니다.  class 표시 기호는  .  */
