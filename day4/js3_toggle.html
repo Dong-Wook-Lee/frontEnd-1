@@ -14,13 +14,13 @@
     <img src="../images/pic_bulbon.gif" alt="light" style="width: 100px;cursor: pointer;" id="myImage"
                                                               onclick="bulbToggle()">
     <button onclick="bulbOff()">불을 꺼주세요.</button>
-
+    <!--  body 안에 있는 것들 순서대로 실행됩니다. img 태그가 script 뒤에 있으면 오류  : 전역변수, 변수 호이스팅 때문에 onoff 가 null -->
     <script>
         let state=1;    //전역변수 입니다.   1이면 on , 0이면 off
-        const img = document.getElementById('myImage');          //태그 요소를 가져와 변수로 참조.const 는 값의 변경을 안할때 사용합니다.
+        const img = document.getElementById('myImage');          //태그 요소를 가져와 변수로 참조. const 는 값의 변경을 안할때 사용합니다.
         const onoff = document.getElementById('state');
-        function bulbToggle() {
-                if(state==1) {
+        function bulbToggle() {   //이벤트 핸들러 : onclick 이벤트 발생시 실행되는 함수
+            if(state==1) {
                         bulbOff();
                         state=0;
                 }else  {        //현재 0입니다.
