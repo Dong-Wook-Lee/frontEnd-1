@@ -9,11 +9,11 @@
             color : black;
         }
         .small_blue1 {
-            font-size: 0.9rem;    /*  0.7em 으로 수정해서 비교해보세요. */
+            font-size: 0.9rem;    /*  rem 은 항상 root 태그 16px 기준으로 비율을 정합니다. */
             color: blue;
         }
         .small_blue2 {
-            font-size: 0.9em;    /*  0.7em 으로 수정해서 비교해보세요. */
+            font-size: 0.9em;    /*  em 은 부모 태그 기준으로 비율을 정합니다. */
             color: blue;
         }
     </style>
@@ -62,7 +62,8 @@
 
             function init() {
                  [...$list].forEach(function(fruit){        // 컬렉션 객체를 배열로 변환  , 콜백함수 매개변수는 순서의 의미가 있고 변수명은 임의로 작성.
-                        fruit.className ="init";
+                       fruit.style.color ='black';  
+                        fruit.style.fontSize='1rem';
                     });
             }
 
