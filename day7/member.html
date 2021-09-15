@@ -42,39 +42,51 @@
 	}
 	function validCheck2() {
 		const frm = document.frmReg;
+		let flag = false;
+		let isValid = true;				//action 속성값 변경하고 submit 하기 위해 필요함.
 
+		if(frm.name.value ==""){		//required 처리를 위해서 필요.
+		//	alert('이름은 필수 입력입니다.');				//자바스크립트는 줄바꿈하면 ;  자동 추가.
+			isValid=false;
+		} 
 		//validCheck 에 작성한 유효성 검사 실행을 똑같이 할 수 있게 구현. 
 		if (frm.password.value.length < 8){
 			alert('패스워드는 8글자 이상으로 하세요.');
-			frm.password.focus();				
-			return;			//리턴값 필요없이 함수 종료만.
-		}
+			frm.password.focus();
+			isValid=false;				
+		} 
 		if(frm.age.value < 20 || frm.age.value > 70 ){    
 			alert('나이는 20세 이상 70세 이하로만 가능합니다. ');
 			frm.age.focus();
-			return;
-		}
-		let flag = false;
-		for(let i=0 ;i<frm.hobby.length;i++){
+			isValid=false;
+		} 
+	/* 	for(let i=0 ;i<frm.hobby.length;i++){
 			if(frm.hobby[i].checked){      
 				flag=true;
 				break;
 			}
-		}
-		//체크한것 이 한개도 없으면 여기와서 실행합니다.
+		} */
+		frm.hobby.forEach(element => {			//모든 요소의 값을 검사해야 하는 경우에 사용합니다.
+				console.log(element.value); 
+				if(element.checked) flag = true;
+		});
 		if(!flag) {
 			alert('취미를 1개 이상 선택해 주세요.');
-			return;
+			isValid=false;
 		}	
-		frm.action = 'success.html';			//action 속성값을 변경해서 submit 합니다. 
-		frm.submit();
+		if(isValid){
+			alert('유효값 검사 OK!!!');
+			frm.action = 'success.html';			//action 속성값을 변경해서 submit 합니다. 
+			frm.submit();
+		}	
 	}
 </script>
 </head>
 <body>
 	<div style="width: 70%; margin: auto;">
 		<h3>회원 등록</h3>
-		<form action ="result.html" name="frmReg" onsubmit="return validCheck()">  <!--  방법1) onsubmit : 함수 리턴이 false 이면 submit 동작 안합니다. -->
+		<!-- <form action ="result.html" name="frmReg" onsubmit="return validCheck()"> -->  <!--  방법1) onsubmit : 함수 리턴이 false 이면 submit 동작 안합니다. -->
+		<form action ="result.html" name="frmReg" >  <!--  방법2) -->
 			<table style="width: 100%">
 				<tr>
 					<td><label>이름</label></td>  <!--  required 필수 입력  , readonly : 읽기만.-->
@@ -126,7 +138,15 @@
 						<!-- submit : 서버에게 데이터를 제출 (form action 속성값에 설정된 url 로 데이터 전달.)
 						action 이 .html 은 데이터 전송확인은 못합니다. url 이동만 확인!!-->
 						<input type="reset"	value="다시쓰기">
-						<button onclick="validCheck2()">가입하기[2]</button></td>
+					</td>
+				</tr>	
+					<tr>
+						<td colspan="2">
+						<input type="button" onclick="validCheck2()" value="가입하기[1] input type='button' " >   <!--  이렇게도 씁니다. input 태그 required , email 타입체크 못함.  -->
+						<button type="button"   onclick="validCheck2()">가입하기[2] button type='button'</button>  <!--  이렇게도 씁니다. input 태그 required , email 타입체크 못함.  -->
+						<button>가입하기[3]-form태그 안의 아무 속성 없는 button</button>
+							<!-- form 태그 안에서 button 태그는 type= submit 이 default , form 태그의 action 으로 전달됩니다.  input 	type="submit" 와 동일함.-->
+						</td>
 				</tr>
 			</table>
 		</form>
